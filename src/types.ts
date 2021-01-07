@@ -1,11 +1,8 @@
 export interface User {
   id?: number
-  email: string
-  password: string
-  name: string
-  createdAt?: Date
-}
-
-export interface Token {
-  userId?: string
+  name?: string
+  email?: string
+  password?: string
+  token?: string
+  loaded?: boolean
 }

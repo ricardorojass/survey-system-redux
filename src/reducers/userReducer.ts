@@ -1,23 +1,42 @@
-import { ActionAuthTypes } from "../actions/types"
-import { User } from "../types"
+import {
+  AuthDispatchTypes,
+  SIGNUP_USER_FAIL,
+  SIGNUP_USER_SUCCESS,
+  USER_LOADING,
+  Token
+} from "../actions/authActionsTypes"
 
-const initialState = {
-  user: {} as User
+interface InitialStateI {
+  loading: boolean,
+  token?: Token
 }
 
-type Actions = { type: 'SIGNUP_USER' } | { type: 'SIGNIN_USER' }
+const initialState: InitialStateI = {
+  loading: false
+}
 
-export default function(state = initialState, action: Actions) {
+
+const userReducer = (state: InitialStateI = initialState, action: AuthDispatchTypes): InitialStateI => {
   switch (action.type) {
-    case ActionAuthTypes.signupUser:
+    case SIGNUP_USER_FAIL:
       return {
-        ...state,
-        user: action.payload
+        loading: false
       }
-      break
+
+    case USER_LOADING:
+      return {
+        loading: true
+      }
+
+    case SIGNUP_USER_SUCCESS:
+      return {
+        loading: false,
+        token: action.payload
+      }
 
     default:
       return state
-      break;
   }
 }
+
+export default userReducer

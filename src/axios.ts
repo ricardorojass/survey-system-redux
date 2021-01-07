@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: '/https://survey-systemrr.herokuapp.com/api'
+  baseURL: 'http://zurveys.xyz/api'
 })
 
 instance.interceptors.request.use(config => {
