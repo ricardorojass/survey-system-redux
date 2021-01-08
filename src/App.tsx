@@ -1,44 +1,21 @@
-import React, { useState } from 'react'
-import { RootStore } from './store'
-import { useDispatch, useSelector } from 'react-redux'
-import { Signup } from './actions/authActions'
-
-type State = { email?: string, password?: string }
+import React from 'react'
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
+import Home from './pages/Home'
+import Register from './pages/Register'
+import SurveyListView from './pages/SurveyListView'
 
 const App = () => {
-  const dispatch = useDispatch()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const authState = useSelector((state: RootStore) => state.user)
-
-  const changeName = (value: string) => setName(value)
-  const changeEmail = (value: string) => setEmail(value)
-  const changePassword = (value: string) => setPassword(value)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    const user = {
-      name,
-      email,
-      password
-    }
-    dispatch(Signup(user))
-  }
-
-  console.log('user state', authState)
 
   return (
     <div>
-      <h1>My Survey System Redux</h1>
-      <hr/>
-      <form onSubmit={e => handleSubmit(e)}>
-        <input type="text" onChange={e => changeName(e.target.value)}/>
-        <input type="email" onChange={e => changeEmail(e.target.value)}/>
-        <input type="password" onChange={e => changePassword(e.target.value)}/>
-        <button type="submit">Submit</button>
-      </form>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/surveys" component={SurveyListView} />
+        {/* <PrivateRoute exact path="/surveys/:id/edit" component={SurveyEditView} />
+        <Route exact path="/surveys/:id/edit/surveyResponse" component={SurveyResponseView} />
+        <Route exact path="/surveys/:id/surveySubmitted" component={SurveySubmittedView} /> */}
+      </Switch>
     </div>
   )
 }

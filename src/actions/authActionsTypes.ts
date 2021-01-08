@@ -1,22 +1,14 @@
-export const USER_LOADING = "USER_LOADING"
-export const SIGNUP_USER_FAIL = "SIGNUP_USER_FAIL"
-export const SIGNUP_USER_SUCCESS = "SIGNUP_USER_SUCCESS"
-
-export interface Token {
-  token: string
-}
-
-export interface UserLoading {
-  type: typeof USER_LOADING
-}
+export const AUTH_ERROR = "AUTH_ERROR"
+export const AUTH_USER = "AUTH_USER"
 
 export interface SignupUserFail {
-  type: typeof SIGNUP_USER_FAIL
+  type: typeof AUTH_ERROR,
+  payload: string
 }
 
 export interface SignupUserSuccess {
-  type: typeof SIGNUP_USER_SUCCESS,
-  payload: Token
+  type: typeof AUTH_USER,
+  payload: string
 }
 
-export type AuthDispatchTypes = UserLoading | SignupUserFail | SignupUserSuccess
+export type AuthDispatchTypes = SignupUserFail | SignupUserSuccess
