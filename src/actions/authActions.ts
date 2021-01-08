@@ -2,9 +2,8 @@ import { Dispatch } from "redux"
 import axios from "../axios"
 import { User } from "../types"
 import {
-  USER_LOADING,
-  SIGNUP_USER_FAIL,
-  SIGNUP_USER_SUCCESS,
+  AUTH_USER,
+  AUTH_ERROR,
   AuthDispatchTypes,
 } from './authActionsTypes'
 
@@ -14,26 +13,15 @@ const LOGIN_URI = '/login'
 
 
 
-export const Signup = (user: User) => async (dispatch: Dispatch<AuthDispatchTypes>) => {
+export const Signup = (user: User, callback: CallableFunction) => async (dispatch: Dispatch<AuthDispatchTypes>) => {
   try {
-    dispatch({
-      type: USER_LOADING,
-    })
-
     const response = await axios.post(SIGNUP_URI, user)
-    console.log('response', response);
-
     const { token } = response.data
+
+    dispatch({ type: AUTH_USER, payload: token })
     localStorage.setItem("token", token)
-
-    dispatch({
-      type: SIGNUP_USER_SUCCESS,
-      payload: token
-    })
-
+    callback()
   } catch (e) {
-    dispatch({
-      type: SIGNUP_USER_FAIL,
-    })
+    dispatch({ type: AUTH_ERROR, payload: 'Something was wrong' })
   }
 }
