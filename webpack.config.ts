@@ -49,7 +49,7 @@ const config: webpack.Configuration = {
     new ForkTsCheckerWebpackPlugin({
       async: false,
       eslint: {
-        files: "./src/**/*",
+        files: './src/**/*.{ts,tsx,js,jsx}',
       },
     })
   ],
