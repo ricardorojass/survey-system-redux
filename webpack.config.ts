@@ -4,6 +4,9 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const config: webpack.Configuration = {
   entry: "./src/index.tsx",
+
+  mode: 'development',
+
   module: {
     rules: [
       {
@@ -19,6 +22,14 @@ const config: webpack.Configuration = {
             ],
           },
         },
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       },
     ],
   },
@@ -40,7 +51,7 @@ const config: webpack.Configuration = {
       eslint: {
         files: "./src/**/*",
       },
-    }),
+    })
   ],
 };
 
