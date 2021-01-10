@@ -2,42 +2,43 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Signup } from '../actions/authActions'
+import { AuthContainer } from '../styles/styles'
+import Input from '../components/Input'
 
 const Register = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [data, setData] = useState<any>({
+    name: '',
+    email: '',
+    password: ''
+  })
 
-  const changeName = (value: string) => setName(value)
-  const changeEmail = (value: string) => setEmail(value)
-  const changePassword = (value: string) => setPassword(value)
+  const updateField = (name: string, value: string) => {
+    setData({ ...data, [name]: value })
+  }
+
+  const renderField = (type: string, label: string, name: string) => {
+    const value = data[name]
+    return <Input type={type} label={label} name={name} value={value} onChange={updateField} />
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
-    const user = {
-      name,
-      email,
-      password
-    }
-
-    dispatch(Signup(user, () => history.push('/surveys')))
+    dispatch(Signup(data, () => history.push('/surveys')))
   }
 
   return (
 
-    <div>
-      <h1>Register</h1>
+    <AuthContainer>
+      <h1>Sign Up</h1>
       <form onSubmit={e => handleSubmit(e)}>
-        <input type="text" onChange={e => changeName(e.target.value)}/>
-        <input type="email" onChange={e => changeEmail(e.target.value)}/>
-        <input type="password" onChange={e => changePassword(e.target.value)}/>
+        {renderField('text', 'Name', 'name')}
+        {renderField('email', 'E-mail', 'email')}
+        {renderField('password','Password', 'password')}
         <button type="submit">Submit</button>
       </form>
-
-    </div>
+    </AuthContainer>
   )
 }
 
