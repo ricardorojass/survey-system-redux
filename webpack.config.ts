@@ -2,10 +2,18 @@ import path from "path";
 import webpack from "webpack";
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const config: webpack.Configuration = {
-  entry: "./src/index.tsx",
+  entry: {
+    'app': [
+      path.resolve(__dirname, 'src/index.tsx')
+    ]
+  },
 
   mode: 'development',
+
+  devtool: 'source-map',
 
   module: {
     rules: [
@@ -39,13 +47,19 @@ const config: webpack.Configuration = {
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
+    publicPath: '/'
   },
   devServer: {
     contentBase: path.join(__dirname, "build"),
+    historyApiFallback: true,
     compress: true,
     port: 4000,
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/template.html'),
+      inject: 'body'
+    }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
       eslint: {
