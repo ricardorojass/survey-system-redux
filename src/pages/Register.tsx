@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Signup } from '../actions/authActions'
-import { AuthContainer } from '../styles/styles'
+import { AuthContainer, SubmitButton } from '../styles/styles'
 import Input from '../components/Input'
 
 const Register = () => {
@@ -30,13 +30,13 @@ const Register = () => {
 
   return (
 
-    <AuthContainer>
+    <AuthContainer dark={false} className="AuthContainer">
       <h1>Sign Up</h1>
       <form onSubmit={e => handleSubmit(e)}>
         {renderField('text', 'Name', 'name')}
         {renderField('email', 'E-mail', 'email')}
         {renderField('password','Password', 'password')}
-        <button type="submit">Submit</button>
+        <SubmitButton dark={false}>SIGN UP</SubmitButton>
       </form>
     </AuthContainer>
   )

@@ -10,7 +10,8 @@ export const AppContainer = styled.div`
   width: 100%;
 `
 
-export const AuthContainer = styled.div`
+export const AuthContainer = styled.div<ColorText>`
+  color: ${props => (props.dark? "#000" : "#fff")};
   background-color: #ffffff3d;
   border-radius: 3px;
   display: flex;
@@ -21,19 +22,37 @@ export const AuthContainer = styled.div`
   width: 100%;
 `
 
-export const FormContainer = styled.div`
+export const FormGroup = styled.div`
   max-width: 400px;
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: flex-start;
 `
 
 export const InputField = styled.input`
   border-radius: 3px;
   border: none;
   box-shadow: #091e4240 0px 1px 0px 0px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   padding: 0.5rem;
-  width: 100px;  
+  width: 100%;  
+`
+
+interface ColorText {
+  dark?: boolean
+}
+
+export const SubmitButton = styled.button<ColorText>`
+  color: ${props => (props.dark? "#000" : "#fff")};
+  background-color: #5aac44;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 10px 12px;
+  text-align: center;
+  transition: background 85ms ease-in;
+  width: 100%;
+  &:hover {
+    background-color: #37a21b;
+  }
 `
