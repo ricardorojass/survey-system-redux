@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { Signup } from '../actions/authActions'
+import { SignIn } from '../actions/authActions'
 import { AuthContainer, SubmitButton } from '../styles/styles'
 import Input from '../components/Input'
 import '../styles/Auth.scss'
 
-const Register = () => {
+type State = {
+  [key: string]: any
+}
+
+const Login = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const [data, setData] = useState<any>({
+  const [data, setData] = useState<State>({
     name: '',
     email: '',
     password: ''
@@ -26,24 +30,23 @@ const Register = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    dispatch(Signup(data, () => history.push('/surveys')))
+    dispatch(SignIn(data, () => history.push('/surveys')))
   }
 
   return (
 
     <AuthContainer dark={false} className="AuthContainer">
-      <h1>Sign Up</h1>
+      <h1>Sign In</h1>
       <p className="Goto">
-        or <a className="" onClick={() => history.push('/login') }>sign in to your account</a>
+        or <a className="" onClick={() => history.push('/register') }>create account</a>
       </p>
       <form onSubmit={e => handleSubmit(e)}>
-        {renderField('text', 'Name', 'name')}
         {renderField('email', 'E-mail', 'email')}
         {renderField('password','Password', 'password')}
-        <SubmitButton dark={false}>SIGN UP</SubmitButton>
+        <SubmitButton dark={false}>SIGN IN</SubmitButton>
       </form>
     </AuthContainer>
   )
 }
 
-export default Register
+export default Login
