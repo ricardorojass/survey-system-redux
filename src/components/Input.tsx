@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FormContainer, InputField } from '../styles/styles'
+import { FormGroup, InputField } from '../styles/styles'
 
 interface InputFieldProps {
     type: string
@@ -12,14 +12,14 @@ interface InputFieldProps {
 const Input = ({ type, label, name, value, onChange}: InputFieldProps) => {
 
 	return (
-		<FormContainer>
+		<FormGroup>
 			<label>{label}</label>
 			<InputField
 					type={type}
 					value={value}
 					onChange={e => onChange(name, e.target.value)}>
 			</InputField>
-		</FormContainer>
+		</FormGroup>
 	)
 }
 

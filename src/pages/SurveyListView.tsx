@@ -1,9 +1,10 @@
 import React from 'react'
+import Header from '../components/Header'
 
 const SurveyListView = () => {
   return (
-    <div>
-      <h1>Surveys</h1>
+    <div className="SurveyList">
+      <Header />
     </div>
   )
 }

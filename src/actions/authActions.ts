@@ -25,3 +25,16 @@ export const Signup = (user: User, callback: CallableFunction) => async (dispatc
     dispatch({ type: AUTH_ERROR, payload: 'Something was wrong' })
   }
 }
+
+export const SignIn = (user: User, callback: CallableFunction) => async (dispatch: Dispatch<AuthDispatchTypes>) => {
+  try {
+    const response = await axios.post(LOGIN_URI, { email: user.email, password: user.password })
+    const { token } = response.data
+
+    dispatch({ type: AUTH_USER, payload: response.data })
+    localStorage.setItem("token", token)
+    callback()
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: 'Something was wrong' })
+  }
+}
